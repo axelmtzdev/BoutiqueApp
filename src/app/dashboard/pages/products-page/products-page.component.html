@@ -1,0 +1,55 @@
+<!-- Contenedor principal -->
+<div class="flex flex-col h-full">
+  <!-- Encabezado fijo -->
+  <header class="flex justify-between items-center rounded-md p-2 z-10">
+    <!-- Botón de menú -->
+    <menu-button></menu-button>
+
+    <!-- Título -->
+    <h1 class="text-3xl text-gray-600">Almacén</h1>
+
+    <!-- Botón del carrito -->
+    <button type="button"
+      class="relative inline-flex items-center p-3 m-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800  dark:bg-blue-600 dark:hover:bg-blue-700 "
+      (click)="goToCartPage()">
+      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+        viewBox="0 0 20 16">
+        <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
+          d="M8 8v1h4V8m4 7H4a1 1 0 0 1-1-1V5h14v9a1 1 0 0 1-1 1ZM2 1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Z" />
+      </svg>
+      <span class="sr-only">Notifications</span>
+      <div
+        class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-1 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+        {{cartCount}}</div>
+    </button>
+
+
+  </header>
+
+  <div class="border-t mb-1"></div>
+
+  <!-- Contenido desplazable -->
+  <main class="flex-grow overflow-y-auto my-2 bg-slate-100">
+    <!-- Línea divisoria -->
+
+
+    <!-- Sección de productos -->
+    <section class="pt-1">
+      <div
+        class="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+      >
+        @for (item of product; track item) {
+          <div
+            class="shadow-md rounded-lg bg-white overflow-hidden hover:shadow-lg transition-shadow"
+          >
+            <shop-card [product]="item"></shop-card>
+          </div>
+        }
+      </div>
+    </section>
+
+  </main>
+</div>
+
+
+

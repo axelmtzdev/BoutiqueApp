@@ -1,0 +1,87 @@
+@if (sale.length > 0) {
+
+
+  <form class="flex flex-wrap gap-4 justify-between items-center p-4" [formGroup]="myPaymentForm"  (ngSubmit)="validatePay()">
+
+    <!-- Input de Fecha -->
+    <div class="flex flex-col w-full sm:w-auto border-b-2">
+      <label for="date" class="label-input100">Fecha</label>
+      <input id="date" type="date" class="input100" formControlName="paymentDate"/>
+    </div>
+
+    <!-- Input de Monto -->
+    <div class="flex flex-col w-full sm:w-auto border-b-2">
+      <label for="amount" class="label-input100">Monto</label>
+      <input id="amount" type="number" min="0" placeholder="Monto" class="input100" formControlName="totalAmountToPay"/>
+
+    </div>
+
+    <!-- Select de Método de Pago -->
+    <div class="flex flex-col w-full sm:w-auto border-b-2">
+      <label for="payment-method" class="label-input100">Método de Pago</label>
+      <select id="payment-method" class="input100" formControlName="paymentType">
+        <option selected value="">Selecciona el método de pago</option>
+        <option value="deposito">Depósito</option>
+        <option value="efectivo">Efectivo</option>
+      </select>
+
+    </div>
+
+    <!-- Botón -->
+    <div class="flex w-full sm:w-auto">
+      <button
+        class="px-4 py-2 bg-blue-500 rounded-md hover:bg-blue-600 text-white font-medium shadow-md w-full sm:w-auto">
+        Registrar pago
+      </button>
+    </div>
+  </form>
+
+
+
+<div class="bg-white rounded-lg shadow-md p-2 m-2">
+  <h2 class="text-slate-800">{{sale[0].client.name}}</h2>
+  @for (item of sale; track item) {
+  <div class="flex-col  bg-slate-50 rounded-md shadow-md p-2 my-2">
+    <div class="flex justify-between items-center">
+
+      <p class="text-slate-800">Fecha de venta: <span class="mx-2 text-blue-800"> {{item.saleDate | date}} </span></p>
+      <p class="text-slate-800">Total venta: <span class="text-green-500">${{item.totalAmount | number}}</span></p>
+
+    </div>
+
+    @if (item.payments.length === 0) {
+    <p>No se ha registrado ningún pago</p>
+    }@else {
+    <p class="text-slate-800">Pagos:</p>
+
+    @for (pay of item.payments; track pay) {
+      <div class="flex justify-between items-center">
+
+        <p class="text-green-500">${{pay.amount | number}}<span class="text-slate-700"> - {{pay.date |date}}</span></p>
+        <p class="text-slate-600">{{pay.paymentType | titlecase}}</p>
+      </div>
+    }
+
+    }
+
+
+  </div>
+
+
+  }
+  <div class="flex justify-between items-center p-2 m-2">
+
+    <p>Total: <span class="text-green-500">${{ TotalAmount | number}}</span></p>
+    <p>Saldo: <span class="text-red-500">${{ TotalAmount - TotalPayment| number}}</span></p>
+  </div>
+
+
+
+
+
+</div>
+}@else {
+<div class="flex items-center justify-center max-h-screen">
+  <p class="text-3xl text-gray-500">No hay ventas disponibles para mostrar.</p>
+</div>
+}

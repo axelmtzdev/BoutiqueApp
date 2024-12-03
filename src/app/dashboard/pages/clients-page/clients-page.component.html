@@ -1,0 +1,77 @@
+<div class="flex flex-col h-full">
+  <!-- Header -->
+  <header class="flex items-center p-2 z-10">
+    <menu-button class="sm:hidden mr-2"></menu-button>
+    <h1 class="text-3xl text-gray-600 flex-1 text-center">Clientes</h1>
+  </header>
+  <div class="border-t mb-1"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow overflow-y-auto my-2 bg-slate-100 p-4">
+    <section class="pt-1">
+      <div class="flex flex-col md:flex-row md:justify-center md:space-x-4 items-start">
+        <!-- Formulario -->
+        <div class="w-full md:w-1/3 bg-white px-6 py-6 rounded-2xl shadow-lg">
+          <form class="space-y-4" [formGroup]="clientForm" (ngSubmit)="addNewClient()">
+            <div class="wrap-input100">
+              <label class="label-input100">Nombre</label>
+              <input
+                class="input100"
+                type="text"
+                placeholder="Nombre del cliente"
+                formControlName="name"
+              />
+              <span class="focus-input100"></span>
+            </div>
+
+            <div class="wrap-input100">
+              <label class="label-input100">Contacto</label>
+              <input
+                class="input100"
+                type="text"
+                placeholder="Celular, Facebook..."
+                formControlName="contact"
+              />
+              <span class="focus-input100"></span>
+            </div>
+
+            <div class="text-right pt-4">
+              <button
+                class="w-full bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-300"
+                type="submit"
+                [disabled]="clientForm.invalid"
+              >
+                Agregar
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Lista de Clientes -->
+        <div class="w-full md:w-1/3 bg-white px-6 py-6 mt-4 md:mt-0 rounded-2xl shadow-lg h-[500px] overflow-y-auto">
+          <!-- Campo de búsqueda -->
+          <div class="block mb-4">
+            <input
+              type="text"
+              class="w-full px-4 py-2 bg-gray-50 text-slate-800 shadow-lg rounded-md border focus:outline-none focus:ring focus:ring-blue-500"
+              placeholder="Buscar cliente"
+              (input)="onInput($event)"
+            />
+          </div>
+
+          <!-- Lista filtrada -->
+          <div *ngIf="filteredClients.length > 0; else noResults">
+            <ng-container *ngFor="let client of filteredClients">
+              <client-info [clients]="client"></client-info>
+            </ng-container>
+          </div>
+
+          <!-- Mensaje cuando no hay resultados -->
+          <ng-template #noResults>
+            <p class="text-center text-gray-500">No se encontraron clientes.</p>
+          </ng-template>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

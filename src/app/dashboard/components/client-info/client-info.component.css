@@ -1,0 +1,13 @@
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+}
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}

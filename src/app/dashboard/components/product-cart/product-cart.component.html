@@ -1,0 +1,21 @@
+
+<div class="flex items-center justify-between p-4 bg-gray-100 border border-gray-300 rounded-lg shadow-md">
+  <div class="flex items-start">
+    <!-- Detalle del producto -->
+    <div class="relative overflow-hidden rounded-lg bg-gray-600 aspect-square h-32 w-32">
+      <img
+        [src]="product | productImage"
+        [alt]="product.name"
+        class="w-full h-full object-fill transition-transform duration-300 hover:scale-110"
+      />
+    </div>
+    <div class="ml-4 w-auto">
+      <p class="text-lg font-semibold text-gray-800">{{ product.name }}</p>
+      <p class="text-sm text-gray-600">{{ product.brand }}</p>
+      <p class="text-sm text-gray-600">Tamaño: {{ product.size }}</p>
+      <p class="text-sm font-medium text-gray-800">Precio: ${{ product.priceSale }}</p>
+    </div>
+  </div>
+  <!-- Mostrar como readonly si está activado -->
+
+</div>

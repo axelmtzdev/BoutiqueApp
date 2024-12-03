@@ -1,0 +1,58 @@
+<article
+  class="rounded-xl bg-white p-4 shadow-md hover:shadow-lg hover:transform hover:scale-105 duration-300 flex flex-col h-full">
+  <!-- Imagen del producto -->
+  <div class="relative overflow-hidden rounded-lg bg-gray-100 aspect-square">
+    <img [src]="product | productImage" [alt]="product.name"
+      class="w-full h-full object-contain transition-transform duration-300 hover:scale-110" />
+  </div>
+
+  <!-- Contenido de la tarjeta -->
+  <div class="mt-4 p-2 flex flex-col justify-between flex-grow">
+    <!-- Nombre del producto -->
+    <h2 class="text-lg font-semibold text-slate-700 truncate">{{ product.name | titlecase }}</h2>
+    <p class="text-sm text-gray-500">{{ product.brand }}</p>
+
+    <!-- Marca y tamaño -->
+    <div class="flex items-center justify-between mt-2">
+      @if (product.stock >= 2) {
+     <span class="text-sm text-green-600">{{product.stock}} piezas</span>
+      }@else if(product.stock === 1) {
+        <span class="text-sm text-red-600">{{product.stock}} pieza</span>
+      }@else {
+        <p class="text-sm">Sin stock</p>
+
+      }
+      <span class="text-xs text-blue-600 bg-blue-100 px-3 py-1 rounded-full font-medium tracking-wide">
+        {{ product.size }}
+      </span>
+    </div>
+
+    <!-- Precio y botón -->
+    <div class="mt-4 flex items-center justify-between">
+      <!-- Precio -->
+      <p class="text-xl font-bold text-blue-500">${{ product.priceSale | number }}</p>
+
+      <!-- Botón Agregar al carrito -->
+      <button class="flex items-center justify-between space-x-2 rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white
+         shadow-md hover:bg-blue-600 hover:shadow-lg
+         focus:ring focus:ring-blue-300 focus:outline-none disabled:bg-gray-400 disabled:cursor-not-allowed transition"
+        [disabled]="product.stock <= 0" (click)="addToCart(product)">
+        <span *ngIf="product.stock > 0; else sold">
+
+          Agregar
+        </span>
+
+        <ng-template #sold>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <span>Sold</span>
+        </ng-template>
+      </button>
+
+
+
+    </div>
+  </div>
+
+</article>

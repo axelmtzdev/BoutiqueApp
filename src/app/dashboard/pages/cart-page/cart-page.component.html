@@ -1,0 +1,74 @@
+<div class="flex flex-col h-full">
+
+  <header class="flex items-center p-2 z-10">
+    <menu-button class="sm:hidden mr-2" />
+    <h1 class="text-3xl text-gray-600 flex-1 text-center ">Carrito</h1>
+  </header>
+
+  <div class="border-t mb-1"></div>
+
+  <main class="flex-grow my-2 overflow-y-auto bg-slate-100">
+
+    <section class="pt-1">
+
+      @if (productsInCart.length > 0) {
+
+      <div class="flex items-center w-auto">
+        <div class="px-8 py-6 rounded-2xl bg-white shadow-lg w-auto mx-auto">
+          <form class="max-w-sm mx-auto space-y-4" [formGroup]="saleForm" (ngSubmit)="onConfirmSale()">
+            <!-- Selección de cliente -->
+            <div>
+              <label for="clients" class="mb-2 text-sm font-medium text-gray-900">Seleccionar un cliente</label>
+              <select id="clients"
+                formControlName="clientId"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <option selected>Elige un cliente</option>
+                <option *ngFor="let client of clientsSignal()" [value]="client._id">{{ client.name }}</option>
+              </select>
+            </div>
+
+            <!-- Productos en el carrito -->
+            <div>
+              <p class="mb-2 text-sm font-medium text-gray-900">Productos en el carrito</p>
+              <div *ngFor="let product of productsInCart" class="mb-4">
+                <product-cart [product]="product"></product-cart>
+              </div>
+            </div>
+            <div class=" py-2 rounded-2xl text-center text-xl w-auto mx-auto">
+              <h2 class="text-gray-900">Total: <span class="text-green-800">${{totalPrice | number}}</span></h2>
+            </div>
+
+            <!-- <div class=" wrap-input100">
+              <span class="label-input100">Pago Inicial</span>
+              <input class="input100" type="number" min="0" placeholder="Pago" formControlName="firstPay">
+              <span class="focus-input100"></span>
+            </div> -->
+
+            <!-- Botón de envío -->
+            <button type="submit"
+              class="w-full py-2 px-4 text-white bg-blue-600 hover:bg-blue-700 rounded-lg focus:outline-none focus:ring focus:ring-blue-300">
+              Confirmar Pedido
+            </button>
+          </form>
+        </div>
+
+
+      </div>
+      } @else {
+      <div class="flex items-center justify-center max-h-screen">
+        <p class="text-3xl text-gray-500">No hay productos en el carrito...</p>
+      </div>
+
+      }
+
+
+    </section>
+
+  </main>
+</div>
+
+
+
+
+
+
